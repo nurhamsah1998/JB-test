@@ -11,18 +11,21 @@ class AuthController extends Controller
 {
     public function register(Request $request):mixed
     {
+        /// VALIDATION FORM
         $request->validate(rules :[
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
 
+         /// STORING DATA TO DB
         $user = User::create(attributes:[
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make(value: $request->password),
         ]);
 
+        /// RETURNING USER INCLUDING WITH TOKEN
         $token = Auth::login($user,10);
         return response()->json(data:[
             'status' => 'success',
@@ -37,6 +40,7 @@ class AuthController extends Controller
 
     public function login(Request $request): mixed
     {
+        /// VALIDATION FORM
         $request->validate(rules :[
             'email' => 'required|string|email',
             'password' => 'required|string|min:6',
@@ -61,7 +65,7 @@ class AuthController extends Controller
             ]
             ]);
     }
-
+    /// REFRESHING TOKEN WHEN TOKEN EXPIRED
     public function refreshToken(Request $request): mixed
     {
         return response()->json(data:[
