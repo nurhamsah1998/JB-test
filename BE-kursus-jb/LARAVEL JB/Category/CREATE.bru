@@ -1,0 +1,25 @@
+meta {
+  name: CREATE
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/my-course
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzM3NTkwOTQzLCJleHAiOjE3Mzc1OTQ1NDMsIm5iZiI6MTczNzU5MDk0MywianRpIjoidkVDREhOcnhSZXB3bUl5dSIsInN1YiI6IjQiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.8bsjlyLmTbUn0xI6Z7edjUMjFAqPsdmhglZilaHTXXU
+}
+
+body:json {
+  {
+    "name":"IT"
+  }
+}
+
+body:multipart-form {
+  : 
+}

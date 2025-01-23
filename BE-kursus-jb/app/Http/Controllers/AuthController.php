@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public int $token_expired = 90;
     public function register(Request $request):mixed
     {
         /// VALIDATION FORM
@@ -26,7 +27,7 @@ class AuthController extends Controller
         ]);
 
         /// RETURNING USER INCLUDING WITH TOKEN
-        $token = Auth::login($user,10);
+        $token = Auth::login($user, $this->token_expired);
         return response()->json(data:[
             'status' => 'success',
             'message' => 'successfully register',
@@ -48,7 +49,7 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        $token = Auth::attempt($credentials,10);
+        $token = Auth::attempt($credentials, $this->token_expired);
         if(!$token){
             return response()->json(data:[
                 'status' => 'error',
@@ -72,7 +73,7 @@ class AuthController extends Controller
             'status' => 'success',
             'user' =>  Auth::user(),
             'authorization' => [
-                'token'=> Auth::refresh($request->bearerToken(),10 ),
+                'token'=> Auth::refresh($request->bearerToken(), $this->token_expired),
                 'type'=> 'bearer'
             ]
             ]);
