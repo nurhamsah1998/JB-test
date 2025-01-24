@@ -54,7 +54,7 @@ function HeaderNavbar() {
 
           {profileData.is_admin ? (
             <CustomDialog
-              classNameButtonLabel="text-white text-sm bg-red-500 hover:bg-red-600"
+              classNameButtonLabel="text-white text-sm bg-red-600 hover:bg-red-700"
               idCloseDialog="close-dialog-delete-course"
               disabledSubmit={mutation.isPending}
               onClickSubmit={() => mutation.mutate({})}

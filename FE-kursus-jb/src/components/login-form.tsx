@@ -127,6 +127,15 @@ export function LoginForm({
                     Register
                   </a>
                 </div>
+                <div className="text-center text-sm">
+                  Go to
+                  <a
+                    onClick={() => nav("/")}
+                    className="underline underline-offset-4 cursor-pointer"
+                  >
+                    Home
+                  </a>
+                </div>
               </div>
             </form>
           </CardContent>

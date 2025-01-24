@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { NavigateFunction } from "react-router-dom";
 import DeleteCourse from "@/views/my-course/components/DeleteCourse";
 import Cookies from "universal-cookie";
+import { Button } from "./ui/button";
 
 function CardCourse({
   nav,
@@ -19,17 +20,7 @@ function CardCourse({
   const [profileData] = useAtom(profile);
   const level = variantLevel?.find((vItem) => vItem?.name === item?.level);
   return (
-    <div
-      onClick={() =>
-        /// SEPERATE PATH BETWEEN CLIENT AND ADMIN
-        nav(
-          `${
-            profileData.is_admin ? "/jb-admin/my-course/" : "/course/"
-          }detail/${item.id}`
-        )
-      }
-      className=" hover:shadow-md p-5 duration-200 cursor-pointer border-[1px] border-gray-200"
-    >
+    <div className=" hover:shadow-md p-5 duration-200 border-[1px] border-gray-200">
       <div
         style={{
           backgroundImage: `url(http://localhost:8000/storage/${item?.thumbnail_path})`,
@@ -82,6 +73,20 @@ function CardCourse({
           </div>
         </div>
       )}
+      <Button
+        onClick={() =>
+          /// SEPERATE PATH BETWEEN CLIENT AND ADMIN
+          nav(
+            `${
+              profileData.is_admin ? "/jb-admin/my-course/" : "/course/"
+            }detail/${item.id}`
+          )
+        }
+        size="sm"
+        className="mt-3 w-full"
+      >
+        See Detail
+      </Button>
       {profileData.is_admin && (
         <div className="mt-3">
           <DeleteCourse courseId={item.id} />
