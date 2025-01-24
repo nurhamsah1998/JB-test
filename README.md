@@ -64,4 +64,4 @@ Task yang saya kerjakan pada bagian "Poin Tambahan (Opsional)" yang tertera pada
 - Menggunakan typescript untuk frontend (ReactJs)
 
 # Penutup
-Harapan saya dengan project simple ini bisa menjadi peluang saya untuk bisa bergabung dengan team Jago Bahasa. Terima kasih 👋🏼
+Harapan saya dengan project simple ini bisa menjadi peluang saya untuk bisa bergabung dengan team Jago Bahasa. Terima kasih
