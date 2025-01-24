@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', length: 255);
             $table->text('source_path')->nullable();
-            $table->enum('type', ['file','url']);
+            $table->enum('type', ['video','document']);
             $table->timestamps();
             ///
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

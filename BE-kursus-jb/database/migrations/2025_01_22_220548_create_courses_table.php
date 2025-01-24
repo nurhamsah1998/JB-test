@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', length: 255);
             $table->integer('price');
             $table->text('description');
-            $table->text('thumbnail_path');
+            $table->text('thumbnail_path')->nullable();
             $table->enum('level', ['very_easy','easy','normal','hard','very_hard']);
             $table->timestamps();
             ///

@@ -9,6 +9,7 @@ import { useForm, Controller } from "react-hook-form";
 import React from "react";
 import { useToast } from "@/hooks/use-toast";
 import Cookies from "universal-cookie";
+import { useQueryClient } from "@tanstack/react-query";
 
 export type Form = {
   email: string;
@@ -37,11 +38,15 @@ export function LoginForm({
     isLoading: false,
   });
   const nav = useNavigate();
+  const client = useQueryClient();
   const onSubmit = async (values: Omit<Form, "name">) => {
+    client.clear();
     setState({ ...state, isLoading: true });
     try {
       const data = await AXIOS.post("/login", values);
-      cookie.set("access_token", data?.data?.authorization?.token);
+      cookie.set("access_token", data?.data?.authorization?.token, {
+        path: "/",
+      });
       nav("/");
     } catch (error: any) {
       console.log(error);

@@ -220,7 +220,12 @@ function FormCreateCourse({
           name="program"
           rules={{ required: "program is required" }}
           render={() => (
-            <Select onValueChange={(i) => setValue("program", i)}>
+            <Select
+              onValueChange={(i) => {
+                setValue("program", i);
+                clearErrors("program");
+              }}
+            >
               <SelectTrigger className="w-full">
                 <SelectValue
                   placeholder={
@@ -243,9 +248,9 @@ function FormCreateCourse({
           )}
           control={control}
         />
-        {errors.level && (
+        {errors.program && (
           <p className=" text-xs text-red-500 leading-3">
-            {errors.level.message as string}
+            {errors.program.message as string}
           </p>
         )}
       </div>

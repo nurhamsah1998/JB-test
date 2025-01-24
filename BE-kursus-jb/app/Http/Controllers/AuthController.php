@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,9 +24,14 @@ class AuthController extends Controller
         $user = User::create(attributes:[
             'name' => $request->name,
             'email' => $request->email,
+            'is_admin' => true,
             'password' => Hash::make(value: $request->password),
         ]);
-
+        /// CREATE FIRST CATEGORY
+        Category::create([
+            'name' => 'How to talk',
+            'user_id' => $user->id
+        ]);
         /// RETURNING USER INCLUDING WITH TOKEN
         $token = Auth::login($user, $this->token_expired);
         return response()->json(data:[
@@ -59,6 +65,7 @@ class AuthController extends Controller
         $user = Auth::user();
         return response()->json(data:[
             'status' => 'success',
+            'message' => 'login successfully',
             'user' =>  $user,
             'authorization' => [
                 'token'=> $token,
@@ -66,16 +73,14 @@ class AuthController extends Controller
             ]
             ]);
     }
-    /// REFRESHING TOKEN WHEN TOKEN EXPIRED
-    public function refreshToken(Request $request): mixed
+
+    public function myProfile(Request $request): mixed
     {
+        $user = Auth::user();
         return response()->json(data:[
             'status' => 'success',
-            'user' =>  Auth::user(),
-            'authorization' => [
-                'token'=> Auth::refresh($request->bearerToken(), $this->token_expired),
-                'type'=> 'bearer'
-            ]
+            'message' =>  'successfully log out',
+            'data' => $user
             ]);
     }
 
@@ -84,7 +89,7 @@ class AuthController extends Controller
         Auth::logout();
         return response()->json(data:[
             'status' => 'success',
-            'user' =>  'successfully log out',
+            'message' =>  'successfully log out',
             ]);
     }
 }

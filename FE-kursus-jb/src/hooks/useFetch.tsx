@@ -3,17 +3,20 @@ import { AXIOS } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import Cookies from "universal-cookie";
 import { useToast } from "./use-toast";
+import { AxiosResponse } from "axios";
 
 function useFetch({
   invalidateKey,
   api,
   staleTime = 5000,
   enabled,
+  afterSuccess = () => {},
 }: {
   enabled?: boolean;
   invalidateKey: string;
   api: string;
   staleTime?: number;
+  afterSuccess?: (prop: AxiosResponse) => void;
 }) {
   const cookie = new Cookies();
   const { toast } = useToast();
@@ -27,6 +30,7 @@ function useFetch({
             Authorization: `bearer ${token}`,
           },
         });
+        afterSuccess(data);
         return data.data;
       } catch (error: any) {
         if (error?.response?.status === 401) {
@@ -45,6 +49,7 @@ function useFetch({
     },
     staleTime,
     enabled,
+    refetchOnWindowFocus: false,
   });
   const items = fetchingQuery.data?.data;
   return { items, ...fetchingQuery };

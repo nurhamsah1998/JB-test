@@ -37,6 +37,6 @@ class Course extends Model
 
     public function material()
     {
-      return $this->belongsTo(Material::class);
+      return $this->hasMany(Material::class);
     }
 }

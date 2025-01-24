@@ -13,24 +13,33 @@ import {
 export function CustomDialog({
   idCloseDialog,
   disabledSubmit,
-  onClickSubmit,
+  onClickSubmit = () => {},
   children,
   buttonLabel = "text here",
+  labelSubmit = "Create",
   title = "title here",
   titleDesc,
+  onClickCancel = () => {},
+  size,
 }: {
+  labelSubmit?: string;
   titleDesc: string;
   title: string;
   buttonLabel: string;
   idCloseDialog: string;
   disabledSubmit: boolean;
+  onClickCancel?: () => void;
   onClickSubmit: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  size?: any;
 }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>{buttonLabel}</Button>
+        <Button disabled={disabledSubmit} size={size}>
+          {buttonLabel}
+        </Button>
       </DialogTrigger>
       <DialogContent
         onInteractOutside={(i) => i.preventDefault()}
@@ -43,12 +52,17 @@ export function CustomDialog({
         <div className="grid gap-4 py-4">{children}</div>
         <DialogFooter>
           <DialogClose asChild>
-            <Button id={idCloseDialog} type="button" variant="secondary">
+            <Button
+              onClick={onClickCancel}
+              id={idCloseDialog}
+              type="button"
+              variant="secondary"
+            >
               Cancel
             </Button>
           </DialogClose>
           <Button disabled={disabledSubmit} onClick={onClickSubmit}>
-            Create
+            {labelSubmit}
           </Button>
         </DialogFooter>
       </DialogContent>
