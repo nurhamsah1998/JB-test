@@ -16,7 +16,7 @@ function CourseDetail() {
       api: `${profileData.is_admin ? "/my-" : "/"}course/${id}`,
       invalidateKey: `${profileData.is_admin ? "/my-" : "/"}course/${id}`,
       staleTime: 1,
-      enabled: Boolean(id),
+      enabled: Boolean(profileData.id),
     });
   const level = variantLevel?.find((vItem) => vItem?.name === items?.level);
   return (

@@ -11,6 +11,7 @@ function DeleteCourse({ courseId }: { courseId: number | undefined }) {
     <CustomDialog
       idCloseDialog="close-dialog-delete-course"
       disabledSubmit={mutation.isPending}
+      classNameButtonLabel="w-full"
       onClickSubmit={() => mutation.mutate(courseId)}
       buttonLabel="Delete"
       size="sm"

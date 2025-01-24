@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance } from "axios";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -25,8 +27,7 @@ export const getInitialName = (name: string) => {
       index += 1;
     }
     return `${name[0]}${name[index]}`.toUpperCase();
-  } catch (error: unknown) {
-    console.log(error);
+  } catch (error: any) {
     return "";
   }
 };

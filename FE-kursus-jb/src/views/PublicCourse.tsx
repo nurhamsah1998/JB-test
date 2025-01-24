@@ -1,5 +1,5 @@
 import useFetch from "@/hooks/useFetch";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { CourseType } from "./Dashboard";
 import CardCourse from "@/components/card-course";
 import EmptyMessage from "@/components/empty-message";

@@ -6,7 +6,7 @@ import Cookies from "universal-cookie";
 import { CustomDialog } from "./dialog";
 
 function HeaderNavbar() {
-  const [profileData] = useAtom(profile);
+  const [profileData, setProfileData] = useAtom(profile);
   const cookie = new Cookies();
   const nav = useNavigate();
   const mutation = useMutationPost({
@@ -15,11 +15,17 @@ function HeaderNavbar() {
     invalidateKey: "/logout_none",
     afterSuccess: () => {
       cookie.remove("access_token", { path: "/" });
-      nav("/login");
+      nav("/");
+      setProfileData({
+        id: "",
+        name: "",
+        email: "",
+        is_admin: false,
+      });
     },
   });
   return (
-    <div className="bg-slate-700 p-3 sticky top-0 z-40 flex justify-center">
+    <div className="bg-slate-700 h-16 p-3 sticky top-0 z-40 flex justify-center">
       <div className="flex items-center justify-between  w-full sm:w-[85%]">
         {profileData.is_admin ? (
           <p className="text-white capitalize font-bold max-w-28 sm:max-w-full overflow-hidden text-ellipsis">

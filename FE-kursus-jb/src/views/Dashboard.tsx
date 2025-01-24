@@ -40,8 +40,8 @@ function Dashboard() {
       <div className="flex justify-between items-center mb-5">
         <div>
           <p className="text-lg font-semibold text-gray-600">Course</p>
-          <p className="text-sm leading-3 font-semibold text-gray-600">
-            all of your course is in here
+          <p className="text-sm leading-3 text-gray-600">
+            all your courses are here
           </p>
         </div>
         <Button onClick={() => nav("/jb-admin/my-course/create")}>
@@ -66,12 +66,7 @@ function Dashboard() {
             ))
         ) : itemsCourse?.length !== 0 ? (
           itemsCourse?.map((item) => (
-            <CardCourse
-              isLoading={isLoading}
-              key={item?.id}
-              item={item}
-              nav={nav}
-            />
+            <CardCourse key={item?.id} item={item} nav={nav} />
           ))
         ) : (
           <EmptyMessage desc="Opss, looks like you dont have any course !" />
