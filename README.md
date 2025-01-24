@@ -51,7 +51,7 @@ Terdapat 2 role dalam aplikasi ini yaitu **ADMIN** dan **CLIENT**.
 - view detail kursus
 
 pada aplikasi ini saya menerapkan state management menggunakan [Jotai](https://jotai.org/), state management yang sangat simple seperti menggunakan useState pada React, 
-dan untuk UI saya menggunakan [shadcn](https://ui.shadcn.com/) agar lebih cepat.
+dan untuk UI saya menggunakan [shadcn](https://ui.shadcn.com/) (tailwind base style) agar lebih cepat.
 Task yang saya kerjakan pada bagian "Poin Tambahan (Opsional)" yang tertera pada file Challenge, sebagai berikut: 
 - Menggunakan JWT.
 - menggunakan state management (saya memakai jotai, saya harap ini sudah termasuk)
