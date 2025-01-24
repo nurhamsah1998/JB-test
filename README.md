@@ -13,7 +13,7 @@ Dalam project ini terdapat 2 folder application **BE-kursus-jb** dan **FE-kursus
       DB_DATABASE=jago-bahasa-test
       DB_USERNAME=postgres
       DB_PASSWORD=root
-- lalu jalankan perintah berikut : 
+- lalu jalankan perintah berikut (jika tidak ada masalah pada langkah ini, berati server sudah berjalan, jika tidak maka lanjut step selanjutnya) : 
 
       composer run project-nurhamsah
 - jika terjadi error atau server tidak jalan bisa melakukan dengan manual :
