@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public int $token_expired = 90;
+    public int $token_expired = 9000;
     public function register(Request $request):mixed
     {
         /// VALIDATION FORM

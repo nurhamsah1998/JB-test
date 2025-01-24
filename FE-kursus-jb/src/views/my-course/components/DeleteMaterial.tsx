@@ -11,6 +11,7 @@ function DeleteMaterial({
   const mutation = useMutationDelete({
     api: "/my-course/material",
     invalidateKey: `/my-course/${courseId}`,
+    showNotifSuccess: "Succesfully delete material",
   });
   return (
     <CustomDialog

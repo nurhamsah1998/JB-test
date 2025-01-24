@@ -47,7 +47,7 @@ export function LoginForm({
       cookie.set("access_token", data?.data?.authorization?.token, {
         path: "/",
       });
-      nav("/");
+      nav("/jb-admin", { replace: true });
     } catch (error: any) {
       console.log(error);
       toast({
@@ -138,6 +138,6 @@ export function LoginForm({
       </div>
     </div>
   ) : (
-    <Navigate to="/" replace />
+    <Navigate to="/jb-admin" replace />
   );
 }

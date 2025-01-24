@@ -17,7 +17,9 @@ Route::get(uri: '/program', action: [ProgramController::class, 'readAll'])->midd
 Route::get(uri: '/my-course', action: [CourseController::class, 'readPrivateCourse'])->middleware(middleware:['auth:api']);
 Route::get(uri: '/my-course/{id}', action: [CourseController::class, 'readPrivateCourseById'])->middleware(middleware:['auth:api']);
 Route::post(uri: '/my-course', action: [CourseController::class, 'store'])->middleware(middleware:['auth:api']);
+Route::delete(uri: '/my-course/{id}', action: [CourseController::class, 'destroy'])->middleware(middleware:['auth:api']);
 Route::post(uri: '/my-course/material', action: [MaterialController::class, 'store'])->middleware(middleware:['auth:api']);
 Route::delete(uri: '/my-course/material/{id}', action: [MaterialController::class, 'destroy'])->middleware(middleware:['auth:api']);
 Route::get(uri: '/course', action: [CourseController::class, 'readPublicCourse']);
+Route::get(uri: '/course/{id}', action: [CourseController::class, 'readPublicCourseById']);
 Route::get(uri: '/course/thumbnail/{path}', action: [CourseController::class, 'getThumbnail']);

@@ -21,8 +21,10 @@ export function CustomDialog({
   titleDesc,
   onClickCancel = () => {},
   size,
+  classNameButtonLabel,
 }: {
   labelSubmit?: string;
+  classNameButtonLabel?: string;
   titleDesc: string;
   title: string;
   buttonLabel: string;
@@ -37,7 +39,11 @@ export function CustomDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button disabled={disabledSubmit} size={size}>
+        <Button
+          disabled={disabledSubmit}
+          className={classNameButtonLabel}
+          size={size}
+        >
           {buttonLabel}
         </Button>
       </DialogTrigger>

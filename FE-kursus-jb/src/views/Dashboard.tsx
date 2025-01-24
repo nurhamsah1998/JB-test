@@ -4,31 +4,8 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import EmptyMessage from "@/components/empty-message";
 import CardCourse from "@/components/card-course";
+import { Category, Material, Program, User } from "./additional-type";
 
-type Program = {
-  id: number;
-  name: string;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
-};
-type Category = {
-  id: number;
-  name: string;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
-};
-type Material = {
-  id: number;
-  name: string;
-  source_path: string;
-  type: string;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
-  course_id: number;
-};
 export type CourseType = {
   id: number;
   name: string;
@@ -39,6 +16,7 @@ export type CourseType = {
   created_at: string;
   updated_at: string;
   user_id: number;
+  user: User;
   material?: Material[];
   category_id: number;
   category?: Category;
@@ -59,8 +37,14 @@ function Dashboard() {
   );
   return (
     <div>
-      <div className="flex justify-end mb-5">
-        <Button onClick={() => nav("/my-course/create")}>
+      <div className="flex justify-between items-center mb-5">
+        <div>
+          <p className="text-lg font-semibold text-gray-600">Course</p>
+          <p className="text-sm leading-3 font-semibold text-gray-600">
+            all of your course is in here
+          </p>
+        </div>
+        <Button onClick={() => nav("/jb-admin/my-course/create")}>
           Create new course
         </Button>
       </div>
@@ -82,7 +66,12 @@ function Dashboard() {
             ))
         ) : itemsCourse?.length !== 0 ? (
           itemsCourse?.map((item) => (
-            <CardCourse key={item?.id} item={item} nav={nav} />
+            <CardCourse
+              isLoading={isLoading}
+              key={item?.id}
+              item={item}
+              nav={nav}
+            />
           ))
         ) : (
           <EmptyMessage desc="Opss, looks like you dont have any course !" />

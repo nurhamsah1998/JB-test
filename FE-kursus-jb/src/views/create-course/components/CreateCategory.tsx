@@ -19,6 +19,7 @@ export function CreateCategory() {
   const mutation = useMutationPost({
     invalidateKey: "/category",
     api: "/category",
+    showNotifSuccess: "Successfully create category",
     afterSuccess: () => {
       const closeDialog = document.getElementById("close-dialog-category");
       if (closeDialog) {

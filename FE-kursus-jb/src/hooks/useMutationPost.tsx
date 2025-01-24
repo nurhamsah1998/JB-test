@@ -9,10 +9,12 @@ function useMutationPost({
   invalidateKey,
   api,
   headers,
+  showNotifSuccess,
   afterSuccess = () => {},
 }: {
   afterSuccess?: () => void;
   invalidateKey: string;
+  showNotifSuccess?: string;
   api: string;
   headers?: Record<string, any>;
 }) {
@@ -35,6 +37,12 @@ function useMutationPost({
             },
           }
         );
+        if (showNotifSuccess) {
+          toast({
+            variant: "success",
+            title: showNotifSuccess,
+          });
+        }
         client.invalidateQueries({ queryKey: [invalidateKey] });
         afterSuccess();
         return data.data;

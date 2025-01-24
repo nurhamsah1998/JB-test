@@ -96,8 +96,9 @@ export function CreateCourse({
     invalidateKey: "/my-course",
     api: "/my-course",
     afterSuccess: () => {
-      nav("/");
+      nav("/jb-admin");
     },
+    showNotifSuccess: "Successfully create new course. Good luck!",
     headers: {
       "Content-Type": "multipart/form-data",
     },

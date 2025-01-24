@@ -11,14 +11,10 @@ import { moneyCurrency } from "@/lib/utils";
 function CourseDetail() {
   const { id } = useParams();
   const [profileData] = useAtom(profile);
-  const {
-    items,
-    isLoading,
-    isRefetching,
-  }: { items: CourseType; isLoading: boolean; isRefetching: boolean } =
+  const { items, isLoading }: { items: CourseType; isLoading: boolean } =
     useFetch({
-      api: `/my-course/${id}`,
-      invalidateKey: `/my-course/${id}`,
+      api: `${profileData.is_admin ? "/my-" : "/"}course/${id}`,
+      invalidateKey: `${profileData.is_admin ? "/my-" : "/"}course/${id}`,
       staleTime: 1,
       enabled: Boolean(id),
     });
@@ -53,21 +49,26 @@ function CourseDetail() {
             </p>
           </div>
           <p className=" text-2xl font-semibold">
-            {moneyCurrency(items?.price, "Rp")}
+            {!isLoading && !profileData.is_admin && items?.price === 0
+              ? "FREE"
+              : moneyCurrency(items?.price, "Rp")}
           </p>
           <p className=" text-md font-semibold mt-3">{items?.name}</p>
-          <p className=" text-xs text-slate-700">{items?.description}</p>
+          <p className=" text-sm text-slate-700">{items?.description}</p>
         </div>
       </div>
       <div>
         <div className=" ">
           <div className="h-[1px] w-full bg-gray-300 mt-5 mb-2" />
-          <div className="flex justify-between items-center mt-5">
-            <p className="text-xs font-bold text-left ">Your Material</p>
-            <CreateMaterial isLoading={isLoading} />
-          </div>
+          {profileData.is_admin && (
+            <div className="flex justify-between items-center mt-5">
+              <p className="text-xs font-bold text-left ">Your Material</p>
+              <CreateMaterial isLoading={isLoading} />
+            </div>
+          )}
+
           <div className="flex flex-col gap-3 mt-4">
-            {isLoading || isRefetching ? (
+            {isLoading ? (
               Array(3)
                 .fill(1)
                 .map((_, i) => (
@@ -77,31 +78,24 @@ function CourseDetail() {
                   />
                 ))
             ) : items?.material?.length !== 0 ? (
-              items?.material?.map((item) => (
+              items?.material?.map((itemMaterial) => (
                 <div
-                  key={item.id}
+                  key={itemMaterial.id}
                   className="shadow-md p-3 border-[1px] border-gray-200 rounded-md"
                 >
-                  <div className="flex justify-between ">
+                  <div className="">
                     <div>
-                      <p className="text-sm font-semibold capitalize">
-                        {item.name}
-                      </p>
-                      <p className=" text-xs text-slate-500">
-                        {new Date(item.created_at).toLocaleString()}
-                      </p>
-                      <p className=" capitalize w-fit my-3 text-orange-700 bg-orange-200 rounded-md px-2 py0.5 text-md">
-                        {item.type}
-                      </p>
-                      {item.type === "video" &&
-                        item.source_path.includes("youtu") && (
+                      {itemMaterial.type === "video" &&
+                        itemMaterial?.source_path?.includes("youtu") && (
                           <div>
                             <iframe
                               width="300"
                               height="300"
                               src={`https://www.youtube.com/embed/${
                                 /// MAKE SPLIT AND PICK THE UNIX STRING ONLY
-                                item.source_path.split("//youtu.be/")[1]
+                                itemMaterial?.source_path?.split(
+                                  "//youtu.be/"
+                                )[1]
                               }`}
                               title="YouTube video player"
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -110,17 +104,65 @@ function CourseDetail() {
                             ></iframe>
                           </div>
                         )}
+                      {itemMaterial.type === "document" && (
+                        <div className="w-full">
+                          {itemMaterial.source_path?.includes(".pdf") ? (
+                            <a
+                              href={`http://localhost:8000/storage/${itemMaterial.source_path}`}
+                              target="_blank"
+                              className="text-blue-500 underline text-sm"
+                            >
+                              Click here to open pdf file
+                            </a>
+                          ) : (
+                            <div
+                              onClick={() =>
+                                window.open(
+                                  `http://localhost:8000/storage/${itemMaterial?.source_path}`,
+                                  "_blank"
+                                )
+                              }
+                              style={{
+                                backgroundImage: `url(http://localhost:8000/storage/${itemMaterial?.source_path})`,
+                                backgroundPosition: "center",
+                                backgroundSize: "cover",
+                              }}
+                              className={`rounded-md w-full h-80 cursor-pointer ${
+                                isLoading
+                                  ? "animate-pulse bg-gray-500"
+                                  : "bg-gray-300"
+                              }`}
+                            />
+                          )}
+                        </div>
+                      )}
+                      <p className="text-sm mt-3 font-semibold capitalize">
+                        {itemMaterial.name}
+                      </p>
+                      <p className=" text-xs text-slate-500">
+                        {new Date(itemMaterial.created_at).toLocaleString()}
+                      </p>
+                      <p className=" capitalize w-fit my-3 text-orange-700 bg-orange-200 rounded-md px-2 py0.5 text-md">
+                        {itemMaterial?.type}
+                      </p>
                     </div>
                   </div>
                   {profileData.is_admin && (
                     <div className="flex gap-2 mt-2">
-                      <DeleteMaterial courseId={id} materialId={item.id} />
+                      <DeleteMaterial
+                        courseId={id}
+                        materialId={itemMaterial.id}
+                      />
                     </div>
                   )}
                 </div>
               ))
             ) : (
-              <EmptyMessage desc="Opss, looks like you dont have any material !" />
+              <EmptyMessage
+                desc={`Opss, looks like ${
+                  profileData.is_admin ? "you" : items?.user?.name
+                } dont have any material !`}
+              />
             )}
           </div>
         </div>

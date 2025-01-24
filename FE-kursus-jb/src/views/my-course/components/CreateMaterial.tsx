@@ -43,6 +43,7 @@ export function CreateMaterial({ isLoading }: { isLoading: boolean }) {
   const mutation = useMutationPost({
     invalidateKey: `/my-course/${id}`,
     api: "/my-course/material",
+    showNotifSuccess: "Succesfully create material",
     afterSuccess: () => {
       for (const key in watch()) {
         setValue(key as keyof FormMaterialType, "");
@@ -80,7 +81,7 @@ export function CreateMaterial({ isLoading }: { isLoading: boolean }) {
       onClickSubmit={handleSubmit(onSubmit)}
       buttonLabel="Create New Material"
       title="Create New Material"
-      titleDesc="-"
+      titleDesc="Insert your best material for your client"
     >
       <form className=" space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-2">
@@ -172,12 +173,14 @@ export function CreateMaterial({ isLoading }: { isLoading: boolean }) {
                     clearErrors("document_file");
                   }}
                   file={document_file}
-                  accept=".pdf"
+                  accept=".pdf,.jpg,.png"
                 />
               )}
               control={control}
             />
-            <span className="text-xs">We only accept pdf file</span>
+            <span className="text-xs">
+              We only accept pdf, png and jpg file
+            </span>
             {errors.document_file && (
               <p className=" text-xs text-red-500 leading-3">
                 {errors.document_file.message as unknown as string}

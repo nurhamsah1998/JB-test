@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Material;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends Controller
 {
@@ -16,7 +17,7 @@ class MaterialController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|in:video,document',
             'url' => 'nullable|string|active_url|max:255',
-            'document_file' => 'nullable|file|mimes:pdf|max:5024',
+            'document_file' => 'nullable|file|mimes:jpg,png,pdf|max:9024',
             'course_id' => 'required|exists:programs,id',
         ]);
         $source_path = null;
@@ -43,17 +44,25 @@ class MaterialController extends Controller
    }
 
     public function destroy($id) {
-        $data = Material::where('id', $id)->delete();
-        if($data){
-                return response()->json(data:[
-                    'status' => 'success',
-                    'message' => 'successfully delete material',
-                    ]);
-        }else {
+        $data = Material::where('id', $id)->first();
+        if($data) {
+            if(!Storage::disk('public')->exists($data->source_path)){
                 return response()->json(data:[
                     'status' => 'error',
-                    'message' => 'material not found',
+                    'message' => 'file not found',
                     ], status: 400);
-        }
+            }
+            Storage::disk('public')->delete($data->source_path);
+            $data->delete();
+            return response()->json(data:[
+                'status' => 'success',
+                'message' => 'successfully delete material',
+                ]);
+        }else {
+            return response()->json(data:[
+                'status' => 'error',
+                'message' => 'material not found',
+                ], status: 400);
+    }
    }
 }

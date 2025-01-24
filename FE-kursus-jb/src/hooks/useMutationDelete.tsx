@@ -9,11 +9,13 @@ function useMutationDelete({
   invalidateKey,
   api,
   headers,
+  showNotifSuccess,
   afterSuccess = () => {},
 }: {
   afterSuccess?: () => void;
   invalidateKey: string;
   api: string;
+  showNotifSuccess?: string;
   headers?: Record<string, any>;
 }) {
   const cookie = new Cookies();
@@ -31,6 +33,12 @@ function useMutationDelete({
             ...headers,
           },
         });
+        if (showNotifSuccess) {
+          toast({
+            variant: "success",
+            title: showNotifSuccess,
+          });
+        }
         client.invalidateQueries({ queryKey: [invalidateKey] });
         afterSuccess();
         return data.data;

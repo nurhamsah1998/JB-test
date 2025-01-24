@@ -43,7 +43,13 @@ function useFetch({
             window.location.reload();
           }, 2000);
           return;
+        } else if (error?.response?.status === 404) {
+          toast({
+            variant: "error",
+            title: "Upps, Not found!!",
+          });
         }
+
         console.log(error);
       }
     },
