@@ -49,7 +49,7 @@ function PublicCourse() {
             <CardCourse key={item?.id} item={item} nav={nav} />
           ))
         ) : (
-          <EmptyMessage desc="Opss, looks like you dont have any course !" />
+          <EmptyMessage desc="Opss, looks like we dont have any course !" />
         )}
       </div>
     </div>
