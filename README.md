@@ -1,5 +1,5 @@
 # Hallo kak aku NURHAMSAH 👋🏼
-ini adalah manual book untuk menjalankan aplikasi website kursus **JB COURSE**. Saya menggunakan [PGadmin 4](https://www.pgadmin.org/download/) (version 8.2) untuk management databse postgrenya. 
+ini adalah manual book untuk menjalankan aplikasi dan juga alur website kursus **JB COURSE**. Saya menggunakan [PGadmin 4](https://www.pgadmin.org/download/) (version 8.2) untuk management databse postgrenya. 
 Dalam project ini terdapat 2 folder application **BE-kursus-jb** dan **FE-kursus-jb**. Silahkan buka 2 terminal yang merujuk pada masing masing directory.
 
 # Cara Menjalankan Aplikasi
@@ -58,4 +58,4 @@ Task yang saya kerjakan pada bagian "Poin Tambahan (Opsional)" yang tertera pada
 - Laman Landing Page untuk menampilkan daftar kursus ke customer.
 - Menggunakan typescript untuk frontend (ReactJs)
 
-# Screen Shoot
+# Screen Shoot (BONUS)
