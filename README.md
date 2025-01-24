@@ -13,7 +13,7 @@ Dalam project ini terdapat 2 folder application **BE-kursus-jb** dan **FE-kursus
       DB_DATABASE=jago-bahasa-test
       DB_USERNAME=postgres
       DB_PASSWORD=root
-- lalu jalankan perintah berikut (jika tidak ada masalah pada langkah ini, berati server sudah berjalan, jika tidak maka lanjut step selanjutnya) : 
+- lalu jalankan perintah berikut (jika server sudah berjalan pada langkah ini, berati work properly, jika tidak maka lanjut step selanjutnya) : 
 
       composer run project-nurhamsah
 - jika terjadi error atau server tidak jalan bisa melakukan dengan manual :
@@ -50,6 +50,11 @@ Terdapat 2 role dalam aplikasi ini yaitu **ADMIN** dan **CLIENT**.
 - view list of kursus
 - view detail kursus
 
+akun default :
+
+      email : test@example.com
+      password: 12345678
+
 pada aplikasi ini saya menerapkan state management menggunakan [Jotai](https://jotai.org/), state management yang sangat simple seperti menggunakan useState pada React, 
 dan untuk UI saya menggunakan [shadcn](https://ui.shadcn.com/) (tailwind base style) agar lebih cepat.
 Task yang saya kerjakan pada bagian "Poin Tambahan (Opsional)" yang tertera pada file Challenge, sebagai berikut: 
@@ -58,4 +63,5 @@ Task yang saya kerjakan pada bagian "Poin Tambahan (Opsional)" yang tertera pada
 - Laman Landing Page untuk menampilkan daftar kursus ke customer.
 - Menggunakan typescript untuk frontend (ReactJs)
 
-# Screen Shoot (BONUS)
+# Penutup
+Harapan saya dengan project simple ini bisa menjadi peluang saya untuk bisa bergabung dengan team Jago Bahasa. Terima kasih 👋🏼
